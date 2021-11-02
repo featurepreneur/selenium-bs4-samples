@@ -21,19 +21,32 @@ click=driver.find_element_by_xpath("/html/body/div[2]/div/div[2]/div/div/div/div
 
 links_space=[]
 
-for i in range(1,7):
+# for i in range(1,7):
+i=0
 
-    driver.find_element_by_xpath(f'/html/body/div[2]/div/div/div/div/div[1]/div[4]/div[4]/a[{i}]').click()
+while True:
 
-    page_links=driver.find_elements_by_xpath("//a[@class='font-weight-bolder']")
+    try:
+        driver.find_element_by_xpath(f'/html/body/div[2]/div/div/div/div/div[1]/div[4]/div[4]/a[{i}]').click()
 
-    for link in page_links:
+        page_links=driver.find_elements_by_xpath("//a[@class='font-weight-bolder']")
 
-        each_link=link.get_attribute('href')
+        for link in page_links:
 
-        links_space.append(each_link)
+            each_link=link.get_attribute('href')
+
+            links_space.append(each_link)
+        
+        time.sleep(3)
+
+        i+=1
+
+    except:
+
+        break
+        
     
-    time.sleep(3)
+        
 
 csv_list={
 
@@ -42,7 +55,7 @@ csv_list={
 
 df=pd.DataFrame(csv_list)
 
-df.to_csv('spacelinls.csv',mode='a+')
+df.to_csv('spacelinks.csv',mode='a+')
 
 
 
