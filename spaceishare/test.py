@@ -1,5 +1,8 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import pandas as pd
 import time
 
@@ -21,12 +24,11 @@ driver.find_element_by_name("login").click()
 driver.get("https://spaceishare.com/profile/myProfile/1")
 
 #  scroll = driver.find_elements_by_css_selector('#load_data_message > h3')
-
+wait = WebDriverWait(driver, 10) 
 
 while True: 
     try:
-        scroll = driver.find_elements_by_css_selector('#load_data_message > h3')
-        print(scroll.text)
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="load_data_message"]/h3')))
         break
     except:    
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
